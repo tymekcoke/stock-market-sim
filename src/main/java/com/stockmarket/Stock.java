@@ -7,8 +7,18 @@ public class Stock {
     private final String name; // Nazwa firmy
     private final double initialPrice; // Cena początkowa
 
-    // Konstruktor - inicjalizuje wszystkie pola
+    // Konstruktor - inicjalizuje wszystkie pola z walidacją
     public Stock(String symbol, String name, double initialPrice) {
+        if (symbol == null || symbol.isEmpty()) {
+            throw new IllegalArgumentException("Symbol nie może być pusty");
+        }
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Nazwa nie może być pusta");
+        }
+        if (initialPrice <= 0) {
+            throw new IllegalArgumentException("Cena musi być dodatnia");
+        }
+
         this.symbol = symbol;
         this.name = name;
         this.initialPrice = initialPrice;

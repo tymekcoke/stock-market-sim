@@ -19,8 +19,12 @@ public class Portfolio {
     private StockHolding[] holdings; // Tablica na akcje
     private int holdingsCount; // Licznik
 
-    // Konstruktor
+    // Konstruktor z walidacją
     public Portfolio(double initialCash) {
+        if (initialCash < 0) {
+            throw new IllegalArgumentException("Początkowa gotówka nie może być ujemna");
+        }
+
         this.cash = initialCash;
         this.holdings = new StockHolding[10]; // Tworzymy tablicę na 10 elementów
         this.holdingsCount = 0; // Na początku pusty
@@ -28,6 +32,13 @@ public class Portfolio {
 
     // Dodaje akcje do portfela - jeśli już istnieje zwiększa ilość, jeśli nie - dodaje nową pozycję
     public void addStock(Stock stock, int quantity) {
+        if (stock == null) {
+            throw new IllegalArgumentException("Akcja nie może być null");
+        }
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Ilość musi być dodatnia");
+        }
+
         for (int i = 0; i < holdingsCount; i++) {
             if (holdings[i].stock.equals(stock)) {
                 holdings[i].quantity += quantity;
