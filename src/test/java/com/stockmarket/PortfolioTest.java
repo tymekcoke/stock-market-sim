@@ -53,7 +53,7 @@ class PortfolioTest {
         portfolio.addStock(google, 5);
         portfolio.addStock(microsoft, 2);
 
-        assertEquals(3, portfolio.getHoldingsCount()); // 3 różne pozycje
+        assertEquals(3, portfolio.getHoldingsCount());
         assertEquals(10, portfolio.getStockQuantity(apple));
         assertEquals(5, portfolio.getStockQuantity(google));
         assertEquals(2, portfolio.getStockQuantity(microsoft));
@@ -97,7 +97,7 @@ class PortfolioTest {
         Portfolio portfolio = new Portfolio(1000.0);
         Stock tesla = new Stock("TSLA", "Tesla", 700.0);
 
-        assertEquals(0, portfolio.getStockQuantity(tesla)); // Akcji nie ma = 0
+        assertEquals(0, portfolio.getStockQuantity(tesla));
     }
 
     // Test: pusty portfel ma wartość akcji = 0, całkowita wartość = gotówka
@@ -105,8 +105,8 @@ class PortfolioTest {
     void shouldHandleEmptyPortfolioCalculations() {
         Portfolio portfolio = new Portfolio(2000.0);
 
-        assertEquals(0.0, portfolio.calculateStockValue(), 0.001); // Brak akcji = 0
-        assertEquals(2000.0, portfolio.calculateTotalValue(), 0.001); // Tylko gotówka
+        assertEquals(0.0, portfolio.calculateStockValue(), 0.001);
+        assertEquals(2000.0, portfolio.calculateTotalValue(), 0.001);
     }
 
     // Test: akcje z tym samym symbolem (ale różne obiekty) są traktowane jako ta sama pozycja
@@ -114,14 +114,14 @@ class PortfolioTest {
     void shouldAddStocksWithSameSymbolButDifferentObjects() {
         Portfolio portfolio = new Portfolio(5000.0);
         Stock apple1 = new Stock("AAPL", "Apple Inc.", 150.0);
-        Stock apple2 = new Stock("AAPL", "Apple Corporation", 155.0); // Inny obiekt, ale TEN SAM symbol
+        Stock apple2 = new Stock("AAPL", "Apple Corporation", 155.0);
 
         portfolio.addStock(apple1, 5);
-        portfolio.addStock(apple2, 3); // Powinno dodać do istniejącej pozycji
+        portfolio.addStock(apple2, 3);
 
         assertEquals(1, portfolio.getHoldingsCount()); // 1 pozycja
         assertEquals(8, portfolio.getStockQuantity(apple1)); // 5 + 3 = 8
-        assertEquals(8, portfolio.getStockQuantity(apple2)); // Ten sam wynik
+        assertEquals(8, portfolio.getStockQuantity(apple2));
     }
 
     // Test: tablica ma max 10 pozycji - dodanie 11-tej nie zadziała
@@ -135,13 +135,13 @@ class PortfolioTest {
             portfolio.addStock(stock, 1);
         }
 
-        assertEquals(10, portfolio.getHoldingsCount()); // 10 pozycji - tablica pełna
+        assertEquals(10, portfolio.getHoldingsCount());
 
         // Próba dodania 11-tej akcji
         Stock extraStock = new Stock("EXTRA", "Extra Company", 50.0);
         portfolio.addStock(extraStock, 5);
 
-        assertEquals(10, portfolio.getHoldingsCount()); // Nadal 10 (nie dodało)
-        assertEquals(0, portfolio.getStockQuantity(extraStock)); // Akcji nie ma
+        assertEquals(10, portfolio.getHoldingsCount());
+        assertEquals(0, portfolio.getStockQuantity(extraStock));
     }
 }

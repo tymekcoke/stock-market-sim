@@ -13,16 +13,16 @@ class StockTest {
 
         assertEquals("AAPL", stock.getSymbol());
         assertEquals("Apple Inc.", stock.getName());
-        assertEquals(150.0, stock.getInitialPrice(), 0.001); // 0.001 = tolerancja dla double
+        assertEquals(150.0, stock.getInitialPrice(), 0.001);
     }
 
     // Test: dwie akcje z tym samym symbolem POWINNY być równe
     @Test
     void shouldBeEqualWhenSymbolsAreTheSame() {
         Stock stock1 = new Stock("GOOGL", "Google", 100.0);
-        Stock stock2 = new Stock("GOOGL", "Different Name", 200.0); // Różne nazwy i ceny, ale TEN SAM symbol
+        Stock stock2 = new Stock("GOOGL", "Different Name", 200.0);
 
-        assertTrue(stock1.equals(stock2)); // Powinny być równe
+        assertTrue(stock1.equals(stock2));
     }
 
     // Test: dwie akcje z różnymi symbolami NIE POWINNY być równe
@@ -31,7 +31,7 @@ class StockTest {
         Stock stock1 = new Stock("AAPL", "Apple", 150.0);
         Stock stock2 = new Stock("GOOGL", "Google", 100.0);
 
-        assertFalse(stock1.equals(stock2)); // Powinny być różne
+        assertFalse(stock1.equals(stock2));
     }
 
     // Test: akcja porównana z null NIE POWINNA być równa
@@ -39,16 +39,16 @@ class StockTest {
     void shouldNotBeEqualToNull() {
         Stock stock = new Stock("AAPL", "Apple", 150.0);
 
-        assertFalse(stock.equals(null)); // Ochrona przed NullPointerException
+        assertFalse(stock.equals(null));
     }
 
     // Test: dwie równe akcje MUSZĄ mieć ten sam hashCode (kontrakt Java)
     @Test
     void shouldHaveSameHashCodeWhenEqual() {
         Stock stock1 = new Stock("MSFT", "Microsoft", 300.0);
-        Stock stock2 = new Stock("MSFT", "Microsoft Corp", 310.0); // Ten sam symbol
+        Stock stock2 = new Stock("MSFT", "Microsoft Corp", 310.0);
 
-        assertEquals(stock1.hashCode(), stock2.hashCode()); // hashCode musi być taki sam!
+        assertEquals(stock1.hashCode(), stock2.hashCode());
     }
 
     // Test: akcja porównana sama ze sobą POWINNA być równa
@@ -65,6 +65,6 @@ class StockTest {
         Stock stock = new Stock("AMZN", "Amazon", 3000.0);
         String notAStock = "Na pewno nie Stock";
 
-        assertFalse(stock.equals(notAStock)); // Stock != String
+        assertFalse(stock.equals(notAStock));
     }
 }
