@@ -189,29 +189,66 @@ class PortfolioTest {
     }
 
     @Test
-    void testPolymorphismDifferentValues() {
+    void testPolymorphismShareMarketValue() {
+        Asset share = new Share("POLY1", "Test Share", 100.0);
+        double shareMarket = share.calculateMarketValue(10);
+        assertEquals(1000.0, shareMarket, 0.001);
+    }
+
+    @Test
+    void testPolymorphismCommodityMarketValue() {
+        Asset commodity = new Commodity("POLY2", "Test Commodity", 100.0);
+        double commodityMarket = commodity.calculateMarketValue(10);
+        assertEquals(1000.0, commodityMarket, 0.001);
+    }
+
+    @Test
+    void testPolymorphismCurrencyMarketValue() {
+        Asset currency = new Currency("POLY3", "Test Currency", 100.0);
+        double currencyMarket = currency.calculateMarketValue(10);
+        assertEquals(1000.0, currencyMarket, 0.001);
+    }
+
+    @Test
+    void testPolymorphismShareTransactionCost() {
+        Asset share = new Share("POLY1", "Test Share", 100.0);
+        double shareCost = share.calculateTransactionCost(10);
+        assertEquals(1005.0, shareCost, 0.001);
+    }
+
+    @Test
+    void testPolymorphismCommodityTransactionCost() {
+        Asset commodity = new Commodity("POLY2", "Test Commodity", 100.0);
+        double commodityCost = commodity.calculateTransactionCost(10);
+        assertEquals(1020.0, commodityCost, 0.001);
+    }
+
+    @Test
+    void testPolymorphismCurrencyTransactionCost() {
+        Asset currency = new Currency("POLY3", "Test Currency", 100.0);
+        double currencyCost = currency.calculateTransactionCost(10);
+        assertEquals(1020.0, currencyCost, 0.001);
+    }
+
+    @Test
+    void testPolymorphismDifferentCostsShareVsCommodity() {
         Asset share = new Share("POLY1", "Test Share", 100.0);
         Asset commodity = new Commodity("POLY2", "Test Commodity", 100.0);
-        Asset currency = new Currency("POLY3", "Test Currency", 100.0);
 
-        double shareMarket = share.calculateMarketValue(10); // 100*10 = 1000
-        double commodityMarket = commodity.calculateMarketValue(10); // 100*10 = 1000
-        double currencyMarket = currency.calculateMarketValue(10); // 100*10 = 1000
-
-        assertEquals(1000.0, shareMarket, 0.001);
-        assertEquals(1000.0, commodityMarket, 0.001);
-        assertEquals(1000.0, currencyMarket, 0.001);
-
-        // Koszty transakcji
-        double shareCost = share.calculateTransactionCost(10); // 1000 + 5 = 1005
-        double commodityCost = commodity.calculateTransactionCost(10); // 1000 + 20 = 1020
-        double currencyCost = currency.calculateTransactionCost(10); // 1000 * 1.02 = 1020
-
-        assertEquals(1005.0, shareCost, 0.001);
-        assertEquals(1020.0, commodityCost, 0.001);
-        assertEquals(1020.0, currencyCost, 0.001);
+        double shareCost = share.calculateTransactionCost(10);
+        double commodityCost = commodity.calculateTransactionCost(10);
 
         assertNotEquals(shareCost, commodityCost);
+    }
+
+    @Test
+    void testPolymorphismDifferentCostsShareVsCurrency() {
+        Asset share = new Share("POLY1", "Test Share", 100.0);
+        Asset currency = new Currency("POLY3", "Test Currency", 100.0);
+
+        double shareCost = share.calculateTransactionCost(10);
+        double currencyCost = currency.calculateTransactionCost(10);
+
         assertNotEquals(shareCost, currencyCost);
     }
 }
