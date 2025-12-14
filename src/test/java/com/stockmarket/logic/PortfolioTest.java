@@ -202,7 +202,7 @@ class PortfolioTest {
         assertEquals(1000.0, commodityMarket, 0.001);
         assertEquals(1000.0, currencyMarket, 0.001);
 
-        // Koszty transakcji - różne!
+        // Koszty transakcji
         double shareCost = share.calculateTransactionCost(10); // 1000 + 5 = 1005
         double commodityCost = commodity.calculateTransactionCost(10); // 1000 + 20 = 1020
         double currencyCost = currency.calculateTransactionCost(10); // 1000 * 1.02 = 1020
